@@ -3,8 +3,10 @@ const validator = require('validator');
 
 const url = process.env.MONGODB_URL;
 
-mongoose.connect(url, {
-	useNewUrlParser: true,
-	useCreateIndex: true,
-	useFindAndModify: false
-});
+mongoose
+	.connect(url, {
+		useNewUrlParser: true,
+		useCreateIndex: true,
+		useFindAndModify: false
+	})
+	.then(() => console.log('connected to mongoDB...'));
