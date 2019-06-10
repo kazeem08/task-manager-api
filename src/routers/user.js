@@ -10,7 +10,10 @@ router.get('/users/me', auth, async (req, res) => {
 });
 
 router.post('/users', async (req, res) => {
-	const user = new User(req.body);
+	let user = await User.findOne({ email: req.body.email });
+	if (user) return res.status(400).send('user already exist');
+
+	user = new User(req.body);
 
 	try {
 		await user.save();
