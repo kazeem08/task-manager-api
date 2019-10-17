@@ -37,17 +37,6 @@ const userSchema = new mongoose.Schema(
 		age: {
 			type: Number,
 			default: 0
-		},
-		tokens: [
-			{
-				token: {
-					type: String,
-					required: true
-				}
-			}
-		],
-		avatar: {
-			type: Buffer
 		}
 	},
 	{ timestamps: true }
@@ -76,8 +65,8 @@ userSchema.methods.generateAuthToken = async function() {
 		{ _id: user._id.toString() },
 		process.env.JWT_SECRET_KEY
 	);
-	user.tokens = user.tokens.concat({ token });
-	await user.save();
+	// user.tokens = user.tokens.concat({ token });
+	// await user.save();
 	return token;
 };
 

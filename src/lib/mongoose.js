@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
+const config = require('../config/config')
 
-const url = process.env.MONGODB_URL;
+const url = config.mongo;
 
 mongoose
 	.connect(url, {
