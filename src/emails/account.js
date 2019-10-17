@@ -1,34 +1,37 @@
-const sgMail = require('@sendgrid/mail');
+const nodemailer = require('nodemailer');
+const smtpTransport = require('nodemailer-smtp-transport');
+const config = require('../config/config');
 
-const sendgridAPIKey = process.env.SENDGRID_API_KEY;
+async function sendMail(email, name){
+    try{
+        let transporter = nodemailer.createTransport(smtpTransport({
+            service: config.mail.service,
+            host: config.mail.host,
+            auth: {
+                   user: config.mail.user,
+                   pass: config.mail.pass
+               }
+            }));
+    
+        //    let attachment = [{ // file on disk as an attachment '/tmp/' + filename + '.csv';
+        //     filename: `${filename}`.csv,
+        //     path: `${filePath}${filename}.csv` // stream this file
+        // }]
+        const mailOptions = {
+            from: 'kazeem0825@gmail.com', 
+            to: email, 
+            subject: 'Task manager', 
+            html: `<p>Good day ${name}.</p><br><p>Welcome to task manager Application</p>`
+            // attachments: attachment  
+          };
+    
+          let info = await transporter.sendMail(mailOptions);
+    
+          console.log('Message sent: %s', info.messageId);
+    } catch(err){
+        console.log("unable to send mail", err)
+    }
+   
+}
 
-sgMail.setApiKey(sendgridAPIKey);
-sgMail.send({
-	to: 'kazeem0825@gmail.com',
-	from: 'kazeem0825@gmail.com',
-	subject: 'my first email creation',
-	text: 'Testing my first email'
-});
-
-const sendWelcomeEmail = (email, name) => {
-	sgMail.send({
-		to: email,
-		from: 'kazeem0825@gmail.com',
-		subject: 'my first email creation',
-		text: `Welcome to the app, ${name}. Let me know how you get along with the app`
-	});
-};
-
-const cancelEmail = (email, name) => {
-	sgMail.send({
-		to: email,
-		from: 'kazeem0825@gmail.com',
-		subject: 'Cancellation',
-		text: `Goodbye${name}. How could we have served you better`
-	});
-};
-
-module.exports = {
-	sendWelcomeEmail,
-	cancelEmail
-};
+module.exports = sendMail;
