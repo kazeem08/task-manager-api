@@ -1,7 +1,6 @@
 const User = require('../models/user');
-const auth = require('../middleware/auth');
-const { client } = require('../db/redis');
-const sendmail = require('../emails/account');
+const { client } = require('../lib/redis');
+const sendmail = require('../lib/mail');
 const { promisify } = require('util');
 const getAsync = promisify(client.get).bind(client);
 

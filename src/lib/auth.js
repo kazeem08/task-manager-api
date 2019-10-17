@@ -1,5 +1,5 @@
 const User = require('../models/user');
-const { client } = require('../db/redis');
+const { client } = require('./redis');
 const { promisify } = require('util')
 const getAsync = promisify(client.get).bind(client);
 
