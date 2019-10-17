@@ -1,12 +1,10 @@
 const express = require('express');
 require('dotenv/config');
 const cors = require('cors');
-// require('express-async-errors');
-require('./db/mongoose');
-require('./db/redis');
+require('./lib/mongoose');
+require('./lib/redis');
 
 
-console.log(process.env.REDIS_HOST)
 const userRouter = require('./routers/user');
 const taskRouter = require('./routers/task');
 const app = express();

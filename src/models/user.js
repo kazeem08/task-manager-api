@@ -37,17 +37,6 @@ const userSchema = new mongoose.Schema(
 		age: {
 			type: Number,
 			default: 0
-		},
-		tokens: [
-			{
-				token: {
-					type: String,
-					required: true
-				}
-			}
-		],
-		avatar: {
-			type: Buffer
 		}
 	},
 	{ timestamps: true }

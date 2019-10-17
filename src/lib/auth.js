@@ -8,17 +8,12 @@ const auth = async (req, res, next) => {
 		const token = req.header('Authorization').replace('Bearer ', '');
 
 		let id = await getAsync(token);
+
 		if (!id) throw new Error();
 
-		if (id) {
-			user = await User.findOne({
-				_id: id,
-				'tokens.token': token
-			});
-			req.user = user;
-		}
+		user = await User.findOne({ _id: id });
+		req.user = user;
 
-		// req.token = token; //This will be used in logout route
 		next();
 	} catch (e) {
 		res.status(401).send('Authentication failed');
@@ -26,3 +21,5 @@ const auth = async (req, res, next) => {
 };
 
 module.exports = auth;
+
+// 5da83fc402144f0a3a58029f
