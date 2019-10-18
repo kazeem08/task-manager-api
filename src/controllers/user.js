@@ -1,9 +1,6 @@
 const User = require('../models/user');
 const { redisClient } = require('../lib/redis');
 const sendmail = require('../lib/mail');
-const { promisify } = require('util');
-// const getAsync = promisify(client.get).bind(client);
-
 
 class UserController {
     constructor() { }
