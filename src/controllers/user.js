@@ -1,8 +1,9 @@
 const User = require('../models/user');
-const { client } = require('../lib/redis');
+const { redisClient } = require('../lib/redis');
 const sendmail = require('../lib/mail');
 const { promisify } = require('util');
-const getAsync = promisify(client.get).bind(client);
+// const getAsync = promisify(client.get).bind(client);
+
 
 class UserController {
     constructor() { }
@@ -39,8 +40,10 @@ class UserController {
             );
 
             const token = await user.generateAuthToken();
-            client.set(token, user['_id'].toString());
+            await redisClient.setValue(token, user['_id'].toString());
+
             res.send({ user, token });
+            
         } catch (e) {
             res.status(400).send();
         }

@@ -1,13 +1,11 @@
 const User = require('../models/user');
-const { client } = require('./redis');
-const { promisify } = require('util')
-const getAsync = promisify(client.get).bind(client);
+const { redisClient} = require('./redis');
 
 const auth = async (req, res, next) => {
 	try {
 		const token = req.header('Authorization').replace('Bearer ', '');
 
-		let id = await getAsync(token);
+		let id = await redisClient.getValue(token);
 
 		if (!id) throw new Error();
 
