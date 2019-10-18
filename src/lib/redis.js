@@ -1,10 +1,29 @@
-const redis = require('redis');
+const redis = require('async-redis');
 
-const client = redis.createClient({
-    'host': process.env.REDIS_HOST
-});
+let client;
+
+class Redis{
+    constructor(){}
+
+    init(){
+        client = redis.createClient({
+            'host': process.env.REDIS_HOST
+        });
+    }
+
+    async setValue(key, value) {
+        return client.set(key, value);
+    }
+
+    async getValue(key) {
+        const value = await client.get(key);
+        return value;
+    }
+}
+
+const redisClient = new Redis();
 
 
 module.exports = {
-    client
+    redisClient
 }

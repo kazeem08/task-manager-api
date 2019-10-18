@@ -2,7 +2,9 @@ const express = require('express');
 require('dotenv/config');
 const cors = require('cors');
 require('./lib/mongoose');
-require('./lib/redis');
+const {redisClient} = require('./lib/redis');
+redisClient.init();
+
 
 
 const userRouter = require('./routers/user');
