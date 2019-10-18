@@ -49,10 +49,10 @@ class UserController {
     async logout(req, res) {
         try {
             const token = req.header('Authorization').replace('Bearer ', '');
-            let status = getAsync(token);
+            let status = redisClient.getValue(token);
 
             if (status) {
-                client.del(token)
+                redisClient.delValue(token)
                 return res.send("Logged out");
             }
 
