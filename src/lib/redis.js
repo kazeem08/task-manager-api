@@ -19,6 +19,11 @@ class Redis{
         const value = await client.get(key);
         return value;
     }
+
+    async delValue(key) {
+        const value = await client.del(key);
+        return value;
+    }
 }
 
 const redisClient = new Redis();
