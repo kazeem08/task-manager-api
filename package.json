@@ -27,7 +27,7 @@
 		"nodemailer-smtp-transport": "^2.7.4",
 		"redis": "^2.8.0",
 		"sharp": "^0.21.1",
-		"validator": "^10.11.0"
+		"validator": "^13.7.0"
 	},
 	"devDependencies": {
 		"env-cmd": "^8.0.2",
